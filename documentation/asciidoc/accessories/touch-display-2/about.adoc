@@ -22,7 +22,6 @@ a|
 * Raspberry Pi 5 and later.
 * All Raspberry Pi Compute Module Interface (CMIO) Boards.
 
-
 .2+.^|*10-inch*
 a|
 * Raspberry Pi CM4IO Board and earlier.
@@ -409,14 +408,14 @@ This section assumes that you're familiar with your Compute Module. For more inf
 
 You can connect a Touch Display 2 to a Raspberry Pi Compute Module that is attached to an IO Board. For this, use the supplied *Mini – Mini* FFC.
 
-NOTE: The 10-inch display requires four lanes of DSI data. On the CM5 Board and later, you can use either `DISP` port. On the CM4 Board an earlier, only port `DISP1` supports this.
+NOTE: The 10-inch display requires four lanes of DSI data. On the CM5 Board and later, you can use either the `DISP0` or the `DISP1` port. On the CM4 Board and earlier, only port `DISP1` supports this.
 
 [discrete]
 ==== Step 1. Specify the display in `config.txt`
 
 Raspberry Pi Compute Modules don't automatically detect Touch Display 2 devices.
 
-You must configure the Compute Module for the devices it is connecting to by adding an overlay entry in `config.txt`. The default connection is the port labelled `1`, but you can use the port labelled `0`.
+You must configure the Compute Module for the devices it connects to by adding an overlay entry in `config.txt`.
 
 NOTE: If you're using a Raspberry Pi Compute Module that has eMMC memory, make sure you edit the *configuration file that is used to boot the device*: either the one stored on the eMMC or one on external boot media if you've reconfigured the boot order.  See xref:../computers/compute-module.adoc#flash-compute-module-emmc[rpiboot].
 
@@ -429,6 +428,10 @@ If you're running a headless setup, either open the boot media on another comput
 . Edit the `config.txt` file to *add* the following:
 +
 - `dtoverlay=vc4-kms-dsi-ili79600-10-1inch`
++
+. If using the `DISP0` port on a Compute Module 5, *add* the following:
++
+- `dtoverlay=vc4-kms-dsi-ili79600-10-1inch,dsi0`
 
 [discrete]
 ==== Step 2. Connect the FFC to the Touch Display 2
@@ -437,11 +440,10 @@ IMPORTANT: If you haven't already done so, disconnect your Raspberry Pi Compute 
 
 To connect the FFC to the display:
 
-. Slide the retaining clip outwards from both sides of the `DISP1` FFC connector on the Touch Display 2.
-. Insert the widest end of the FFC into the connector, then slide the retaining clip back into place to secure the cable.
+. Slide the retaining clip outwards from both sides of the FFC connector on the Touch Display 2.
+. Insert the FFC into the connector, then slide the retaining clip back into place to secure the cable.
 +
 The metal contacts must face upwards, away from the Touch Display 2.
-. If connecting to a Raspberry Pi Compute Module 5 IO Board, add two jumpers to `J6`.
 
 .The flat flexible cable correctly attached to the Touch Display 2 10-inch model.
 image::images/touch-display-2-10-ffc.png[alt="Image showing the flat flexible cable correctly attached to the Touch Display 2 10-inch model", width="100%"]
@@ -453,6 +455,7 @@ image::images/touch-display-2-10-ffc.png[alt="Image showing the flat flexible ca
 . Insert the other end of the FFC into the connector port, then close the retaining clip to secure the cable.
 +
 The metal contacts must face downwards.
+. If connecting to a Raspberry Pi Compute Module 5 IO Board `DISP1`, add two jumpers to `J6`.
 
 [discrete]
 ==== Step 4. Connect the GPIO power cable between the device and the display
