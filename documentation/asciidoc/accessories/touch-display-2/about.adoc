@@ -137,6 +137,7 @@ a|
 * Raspberry Pi 5 and later, and all CMIO Boards: supplied *Mini – Mini* 22-way to 22-way FFC
 |===
 
+[[connect-to-raspberry-pi]]
 == Connect to a Raspberry Pi device
 
 Follow the appropriate procedures for your Touch Display 2.
@@ -267,9 +268,6 @@ To connect the FFC to the display:
 . Insert the widest end of the FFC into the Touch Display 2 FFC connector, then slide the retaining clip back into place to secure the cable.
 +
 The metal contacts must face upwards, away from the Touch Display 2.
-. Add two jumpers to `J6`, as required:
-- If connecting to `CAM/DISP 1` on Raspberry Pi Compute Module 5 IO Board.
-- If connecting to the `DSIO` interface on Raspberry Pi Compute Module 4 IO Board.
 
 .The FFC attached to the Touch Display 2.
 image::images/touch-display-2-ffc.jpg[alt="Image showing the flat flexible cable correctly attached to the Touch Display 2", width="100%"]
@@ -281,6 +279,9 @@ image::images/touch-display-2-ffc.jpg[alt="Image showing the flat flexible cable
 . Insert the other end of the FFC into the connector port, then close the retaining clip to secure the cable.
 +
 The metal contacts must face downwards.
+. Add two jumpers to `J6`, as required:
+- If connecting to `CAM/DISP 1` on Raspberry Pi Compute Module 5 IO Board.
+- If connecting to the `DISP0` interface on Raspberry Pi Compute Module 4 IO Board.
 
 .The FFC connector attached to a Raspberry Pi device. Note that the DSI port is oriented horizontally on some devices and vertically on others.
 image::images/touch-display-2-pideviceffc.jpg[alt="The FFC connector attached to a Raspberry Pi device", width="100%"]
