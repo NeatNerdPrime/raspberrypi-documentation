@@ -92,7 +92,7 @@ Touch Display 2 has the following dimensions:
 
 |*10-inch*
 |16 mm
-|161.8 x 247.3 mm
+|168.9 x 248.1 mm
 |136.4 x 217.6 mm
 |135.4 x 216.6 mm
 |===
