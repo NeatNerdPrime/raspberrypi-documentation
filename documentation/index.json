@@ -291,6 +291,43 @@
             ]
         },
         {
+            "title": "Security",
+            "path": "security",
+            "default_tab": "no",
+            "subitems": [
+                {
+                    "title": "Security overview",
+                    "description": "Overview of security options inside the Raspberry Pi hardware and software ecosystem",
+                    "image": "full-sized/security-overview.png",
+                    "subpath": "security.adoc"
+                },
+                {
+                    "title": "Security architecture",
+                    "description": "Security architecture at Raspberry Pi",
+                    "image": "full-sized/security-architecture.png",
+                    "subpath": "security-architecture.adoc"
+                },
+                {
+                    "title": "Secure Boot Provisioner",
+                    "description": "Raspberry Pi Secure Boot Provisioner for verified boot and disk encryption",
+                    "image": "full-sized/secure-boot-provisioner.png",
+                    "subpath": "secure-boot-provisioner.adoc"
+                },
+                {
+                    "title": "Operational security",
+                    "description": "Operational security options for your Raspberry Pi",
+                    "image": "full-sized/operational-security.png",
+                    "subpath": "operational-security.adoc"
+                },
+                {
+                    "title": "Firewalls using UFW",
+                    "description": "Using UFW to protect your Raspberry Pi",
+                    "image": "full-sized/ufw.png",
+                    "subpath": "ufw.adoc"
+                }
+            ]
+        },
+        {
             "title": "Pico C SDK",
             "from_json": "picosdk_index.json",
             "directory": "pico-sdk"
