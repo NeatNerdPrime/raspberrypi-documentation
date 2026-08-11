@@ -480,7 +480,7 @@ This can reduce the maximum usable baud rate for Bluetooth.
 The overlays `uart2`, `uart3`, `uart4`, and `uart5` are used to enable the four additional UARTs on Raspberry Pi 4, 400, Compute Module 4, and Compute Module 4S.
 
 For Raspberry Pi 5, 500, 500+ and Compute Module 5,
-`uart0-pi5``, `uart1-pi5`, `uart2-pi5`, `uart3-pi5` and `uart4-pi5` overlays are used.
+`uart0-pi5`, `uart1-pi5`, `uart2-pi5`, `uart3-pi5` and `uart4-pi5` overlays are used.
 
 To see the available pins and options for these UARTs, use the following help command, replacing `x` in `uartx` with the UART number you want to investigate:
 
