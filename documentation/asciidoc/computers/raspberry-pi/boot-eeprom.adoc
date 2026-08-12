@@ -137,13 +137,11 @@ The following command loads the current bootloader configuration into a text edi
 
 [source,console]
 ----
-$ sudo -E rpi-eeprom-config --edit
+$ sudo rpi-eeprom-config --edit
 $ sudo reboot
 ----
 
 If the updated configuration is identical or empty, then no changes are made.
-
-The editor is selected by the `EDITOR` environment variable.
 
 ==== Applying a saved configuration
 
