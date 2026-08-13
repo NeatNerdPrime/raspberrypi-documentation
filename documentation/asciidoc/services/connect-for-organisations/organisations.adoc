@@ -205,6 +205,39 @@ Use the `tag:` qualifier multiple times to find devices that have _all_ of the s
 
 TIP: Select a tag on any device in the list to quickly add it as a filter.
 
+[[deploy-remote-updates]]
+== Deploy remote updates
+
+You can push updates to the devices in your organisation using Connect's xref:../services/connect.adoc#remoteupdate-intro[remote update] feature. Only administrators can deploy remote updates and manage update artefacts; members can't.
+
+First, build an update artefact and host it somewhere the recipient device can download it from, as described in xref:../services/connect.adoc#host-the-update-artefact[Host the update artefact].
+
+Unlike a personal account, an organisation keeps a library of artefacts that you can deploy more than once. These artefacts are listed under the *Remote update* tab.
+
+Register an artefact ahead of time by going to the *Remote update* tab and selecting *New*, then entering a name, the URI, and the SHA-256 checksum. Artefact names must be unique within an organisation.
+
+.The create deployment artefact screen, showing the required fields: Name, URI, and SHA-256 checksum.
+image::images/create-deployment-artefact.png[alt="The create deployment artefact screen, showing the required fields: Name, URI, and SHA-256 checksum", width="100%"]
+
+To deploy an artefact, go to the *Devices* tab, then select *Deploy* next to the recipient device. *Deploy* only appears for devices that have remote update enabled.
+
+.The device list displays a Deploy button for the devices that have remote update enabled.
+image::images/devices-deploy-button.png[alt="The Raspberry Pi Connect device screen, showing a list of devices, one of which has a deploy button next to it", width="100%"]
+
+Then, on the *New deployment* screen, choose one of the following:
+
+* *Existing*: select an artefact from the drop-down list, then select *Deploy*.
+* *New*: enter the name, URI, and SHA-256 checksum, then select *Create and deploy*. This registers the artefact and deploys it in one go.
+
+.After you've selected Deploy, the New deployment screen gives you the choice of selecting an existing deployment, or creating a new one.
+image::images/new-deployment-view.png[alt="The new deployment screen in Raspberry Pi Connect, showing the option to select an existing artefact or create a new one", width="100%"]
+
+NOTE: You can't delete an artefact after you have deployed it or attempted to deploy it. This is to provide traceability in the event that your account is compromised.
+
+Track the deployment's progress as described in xref:../services/connect.adoc#monitor-the-deployment[Monitor the deployment].
+
+You can also manage update artefacts and deployments automatically using the <<organisations-management-api,management API>>.
+
 == Set up your subscription
 
 A subscription to Connect for Organisations starts when your four-week trial period ends, after which, you're billed in arrears every month.
