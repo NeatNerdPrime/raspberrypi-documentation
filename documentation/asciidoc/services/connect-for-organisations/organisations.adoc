@@ -716,7 +716,22 @@ $ curl --request DELETE --header 'Authorization: Bearer rporg_accesstokenhere' h
 
 If the device identity has already been exchanged for a device, the linked device is also deleted and signed out of Raspberry Pi Connect.
 
-If successful, you get a **204 No Content** response with an empty response body.
+If successful, you get a **200 OK** response with the deleted device identity's details in JSON format. For example:
+
+[source,http]
+----
+HTTP/2 200
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": "096ce472-2cbd-412a-8295-6c03a1a07ba4",
+    "description": "my-device-identity",
+    "device_name": "pi5-001",
+    "tags": [],
+    "created_at": "2026-02-25T16:09:52Z",
+    "public_key": "-----BEGIN PUBLIC KEY-----..."
+}
+----
 
 Otherwise, you get one of the following responses:
 
@@ -1100,7 +1115,23 @@ $ curl --request DELETE --header 'Authorization: Bearer rporg_accesstokenhere' h
 
 You can delete any auth key, including ones that have expired or have already been exchanged. Deleting an auth key that has been exchanged doesn't affect the linked device.
 
-If successful, you get a **204 No Content** response with an empty response body.
+If successful, you get a **200 OK** response with the deleted auth key's details in JSON format. For example:
+
+[source,http]
+----
+HTTP/2 200
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": "096ce472-2cbd-412a-8295-6c03a1a07ba4",
+    "description": "my-auth-key",
+    "device_name": "pi5-001",
+    "tags": ["production", "kiosk"],
+    "expires_at": "2026-02-26T16:09:52Z",
+    "exchanged_at": null,
+    "created_at": "2026-02-25T16:09:52Z"
+}
+----
 
 Otherwise, you get one of the following responses:
 
@@ -1593,7 +1624,35 @@ $ curl --request DELETE --header 'Authorization: Bearer rporg_accesstokenhere' h
 
 ======
 
-If successful, you get a **204 No Content** response with an empty response body.
+If successful, you get a **200 OK** response with the deleted device's details in JSON format. For example:
+
+[source,http]
+----
+HTTP/2 200
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": "69739b44-ebb2-468e-9e24-08126dec4925",
+    "name": "raspberrypi5",
+    "serial_number": "ea636879c4d47a37",
+    "tags": ["production", "kiosk"],
+    "board": {
+        "model": "Raspberry Pi 5",
+        "revision": "1.0",
+        "memory": "8 GB"
+    },
+    "os": {
+        "name": "Raspberry Pi OS",
+        "version": "13 (Trixie)"
+    },
+    "kernel_architecture": "aarch64",
+    "filters": {
+        "model": "5",
+        "memory": "8gb",
+        "os": "raspios-13"
+    }
+}
+----
 
 Otherwise, you get one of the following responses:
 
@@ -1789,7 +1848,20 @@ $ curl --request DELETE --header 'Authorization: Bearer rporg_accesstokenhere' h
 
 ======
 
-If successful, you get a **204 No Content** response with an empty response body.
+If successful, you get a **200 OK** response with the deleted artefact's details in JSON format. For example:
+
+[source,http]
+----
+HTTP/2 200
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": "ee92e7e6-2c2c-4e7d-9d80-2cce8a6c7e8a",
+    "name": "kiosk-v1.0",
+    "uri": "https://example.com/kiosk-v1.0.tar.zst",
+    "checksum": "d39fc02ad7878db7f6803f54dfce89346a763a603cb8e62221ba893fee9c5cc6"
+}
+----
 
 Otherwise, you get one of the following responses:
 
