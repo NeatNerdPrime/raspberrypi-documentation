@@ -211,6 +211,12 @@
                     "subpath": "tv-hat.adoc"
                 },
                 {
+                    "title": "Compute Module 5 Programming Jig",
+                    "description": "A single-head provisioning system that programs Compute Module 5 devices",
+                    "image": "full-sized/cm5-programming-jig.png",
+                    "subpath": "cm5-programming-jig.adoc"
+                },
+                {
                     "title": "Bumper",
                     "description": "A protective case for your Raspberry Pi 5",
                     "image": "full-sized/bumper.png",
