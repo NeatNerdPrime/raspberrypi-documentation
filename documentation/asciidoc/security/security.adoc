@@ -6,7 +6,7 @@ Raspberry Pi follows a structured vulnerability reporting and management process
 
 Raspberry Pi's security architecture ensures that only authenticated boot code runs on provisioned Raspberry Pi devices, disk encryption keys are protected, and a chain of trust verifies every stage of the boot process.
 
-For more information, see xref:../security/security-architecture.adoc[Security architecture]
+For more information, see xref:../security/security-architecture.adoc[Security architecture].
 
 == Secure Boot Provisioner
 
@@ -24,7 +24,7 @@ You can configure your Raspberry Pi device to prevent unauthorised access and im
 
 * User and access management, including authentication, user accounts, groups, and permissions.
 * Regular operating system and software updates.
-* Secure remote access with SSH hardening and automatic SSH server updates.
+* Secure remote access with SSH hardening.
 * Protection against suspicious activity and brute force attacks.
 
 For more information and instructions, see xref:../security/operational-security.adoc[Operational security].

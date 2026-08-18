@@ -303,7 +303,7 @@
                 },
                 {
                     "title": "Security architecture",
-                    "description": "Security architecture at Raspberry Pi",
+                    "description": "Security architecture inside the Raspberry Pi hardware and software ecosystem",
                     "image": "full-sized/security-architecture.png",
                     "subpath": "security-architecture.adoc"
                 },
