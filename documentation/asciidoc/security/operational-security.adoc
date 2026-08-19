@@ -35,7 +35,7 @@ You can also *allow* or *deny* specific users by altering the `sshd` configurati
 
 == Block suspicious activity with Fail2Ban
 
-When using Raspberry Pi as a server, you must create deliberate holes in your firewall to allow server traffic. http://www.fail2ban.org[Fail2Ban] can help secure your server. Fail2Ban examines log files and checks for suspicious activity, like multiple brute-force login attempts. This means that you don't have to manually check log files for intrusion attempts and then update the firewall (through `iptables`) to prevent them.
+When using Raspberry Pi as a server, you must create deliberate holes in your firewall to allow server traffic. https://github.com/fail2ban/fail2ban[Fail2Ban] can help secure your server. Fail2Ban examines log files and checks for suspicious activity, like multiple brute-force login attempts. This means that you don't have to manually check log files for intrusion attempts and then update the firewall (through `iptables`) to prevent them.
 
 To install Fail2Ban, run the following command:
 
