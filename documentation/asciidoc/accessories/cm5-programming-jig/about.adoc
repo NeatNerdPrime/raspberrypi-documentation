@@ -1,6 +1,6 @@
 The https://www.raspberrypi.com/products/cm5-programming-jig[Compute Module 5 Programming Jig] is a provisioning system that programs one Compute Module 5 (CM5) at a time with an operating system (OS) and security configuration. The jig connects directly with each CM5, eliminating the need for a separate IO board during provisioning.
 
-The jig runs https://github.com/raspberrypi/rpi-sb-provisioner[`rpi-sb-provisioner`] to automate the provisioning workflow. When you insert and secure a CM5 into the jig, the jig automatically performs all configuration steps, including secure boot configuration, full-disk encryption, and operating system installation.
+The jig runs xref:../security/secure-boot-provisioner.adoc[Secure Boot Provisioner (`rpi-sb-provisioner`)] to automate the provisioning workflow. When you insert and secure a CM5 into the jig, the jig automatically performs all configuration steps, including secure boot implementation, full-disk encryption, and operating system installation.
 
 .The Compute Module 5 Programming Jig
 image::images/hero.jpg[alt="The Compute Module 5 Programming Jig.",width="100%"]
@@ -28,7 +28,7 @@ This section describes the physical characteristics and capabilities of the Comp
 | Ethernet (10/100/1000)
 
 | Dimensions (including antenna)
-| 170 × 181.4 × 153.3 mm
+| 170 × 181.5 × 153 mm
 
 | Weight
 | 1800 g
@@ -39,10 +39,10 @@ This section describes the physical characteristics and capabilities of the Comp
 
 * *Mechanical clamping.* The jig secures the CM5 in place during programming.
 * *Carrier board-free provisioning.* The jig uses spring-loaded pogo pins to interface directly with a CM5, eliminating the need for a carrier (IO) board and reducing wear on the high-density pin connectors.
-* *LED status indicators.* The jig displays its current state and provisioning progress through dedicated LEDs. For more information about these LEDs, see <<led-indicators, LED indicators>>
+* *LED status indicators.* The jig displays its current state and provisioning progress through dedicated LEDs. For more information about these LEDs, see <<led-indicators, LED behaviour>>
 * *Dual network connectivity.* The jig connects to the provisioning network by Ethernet (*JIG ETH*) or Wi-Fi®, with a second Ethernet port (*DUT ETH*) providing accelerated software transfer to the CM5 being programmed.
-* *Automated provisioning.* The jig automates the provisioning workflow, including OS installation, full-disk encryption, and secure boot configuration (depending on the security mode you choose).
-* *Three security modes.* You have the option to configure the jig to program a CM5 with one of three security modes: full security (`secure-boot`), encrypted storage and device-unique keys (`fde-only`), and OS-only (`naked`). For more information, see <<security-modes>>.
+* *Automated provisioning.* The jig automates the provisioning workflow, including OS installation, full-disk encryption, and secure boot configuration (depending on the level of security you choose).
+* *Three levels of security.* You have the option to configure the jig to program a CM5 with one of three levels of security: full security (`secure-boot`), encrypted storage and device-unique keys (`fde-only`), and OS-only (`naked`). For more information, see xref:../security/secure-boot-provisioner.adoc#security-levels[Levels of security].
 
 WARNING: Don't touch the pogo pins because they're sharp and can carry charge; you might damage the pins, the jig, or yourself.
 
@@ -51,8 +51,11 @@ WARNING: Don't touch the pogo pins because they're sharp and can carry charge; y
 The Compute Module 5 Programming Jig box contains the following parts:
 
 * A Compute Module 5 Programming Jig.
-* A global power supply with 110 V to 240 V AC input and 12 V DC, 2 A (24 W) output.
+* A global power supply with 110 V to 240 V AC input and 12 V at 2 A (24 W) DC output.
 * A Wi-Fi antenna.
+* Two RJ45 cables.
+* Five spare pogo pins.
+* A pair of tweezers.
 
 During usage, you interact with the Compute Module 5 Programming Jig connectors and module bay. There's also a safety button that you don't interact with directly.
 
@@ -61,7 +64,7 @@ During usage, you interact with the Compute Module 5 Programming Jig connectors 
 .The connectors on the back of the CM5 Programming Jig
 image::images/back.jpg[alt="The Wi-Fi antenna connector, LEDs for the DUT and JIG, and the following input ports: 12 V power supply, USB-C, DUT Ethernet, and JIG Ethernet.",width="100%"]
 
-The back of the Compute Module 5 Programming Jig provides four external connectors:
+The back of the Compute Module 5 Programming Jig provides the following external connectors:
 
 .External connectors on the back of the Compute Module 5 Programming Jig
 [cols="1,2", options="header"]
@@ -69,8 +72,11 @@ The back of the Compute Module 5 Programming Jig provides four external connecto
 | Label
 | Description
 
+| *WiFI/BT*
+| The attachment point for the included antenna.
+
 | *12 V IN*
-| A barrel power jack that accepts 12 V DC, 2 A (24 W) DC input from the supplied power supply.
+| A barrel power jack that accepts 12 V at 2 A (24 W) DC input from the supplied power supply.
 
 | *USB BOOT*
 | A USB-C port used to connect your jig to a computer when using Raspberry Pi Imager to write the jig's operating system (see <<setup-step-write-os>>).
@@ -96,29 +102,6 @@ An unmarked safety button is located on top of the jig, at the back of the modul
 
 WARNING: Don't manually press this button because doing so can interrupt a provisioning operation.
 
-[[security-modes]]
-==== Security modes
-
-The jig supports three security modes:
-
-// Change to link to security section when available.
-
-.Security modes
-[cols="1,3", options="header"]
-|===
-| Mode
-| Description
-
-| `secure-boot`
-| Full security: secure boot, encrypted storage, and device-unique keys. Use for production devices that need maximum security.
-
-| `fde-only`
-| Encrypted storage and device-unique keys without secure boot. Use when you need encryption but not secure boot restrictions.
-
-| `naked`
-| Just the operating system without encryption or secure boot. Use for development devices or when security is not required.
-|===
-
 [[set-up-the-jig]]
 == Set up the jig
 
@@ -134,7 +117,7 @@ To set up the jig for the first time, you need the following:
 [[setup-step-configure-imager]]
 === Step 1: Configure Raspberry Pi Imager
 
-You must first configure Raspberry Pi Imager to use the Compute Module 5 Programming Jig manifest and enable `rpiboot` support. If you're using Raspberry Pi Imager to install multiple jigs, you need to do the configuration in this step only once; Imager saves these settings for subsequent writes.
+You must first configure Raspberry Pi Imager to use the Compute Module 5 Programming Jig manifest and enable RPIBOOT support.
 
 ==== Configure the manifest
 
@@ -157,16 +140,18 @@ To configure the repository manually, open Raspberry Pi Imager and complete the 
 . Select *Apply & Restart*.
 ======
 
-==== Enable `rpiboot` support
+==== Enable RPIBOOT support
 
-To configure Raspberry Pi Imager to support `rpiboot`, complete the following steps:
+To configure Raspberry Pi Imager to support RPIBOOT, complete the following steps:
 
 . Open *Debug Options*:
 ** On Windows or Linux, type *Ctrl + Alt + S*.
 ** On macOS, type *Cmd + Option + S*.
 . Scroll to *Advanced Features*.
-. Use the toggle to select *Enable Rpiboot/Fastboot support*.
+. Use the toggle to select *Enable Rpiboot/Fastboot Support*.
 . Select *Apply* to save your changes and exit the *Debug Options* dialog.
+
+If you're using Raspberry Pi Imager to set up multiple jigs, you need to enable RPIBOOT support only once; Imager saves this settings for subsequent writes.
 
 [[setup-step-write-os]]
 === Step 2: Write the operating system to the jig
@@ -183,7 +168,7 @@ The jig boots into USB mass-storage mode. Your computer detects the jig's intern
 
 . On the *Device* tab, select *Raspberry Pi Compute Module 5 Programming Jig*. Select *Next*.
 
-. On the *OS* tab, select *Compute Module 5 Programming Jig OS* as the operating system image. Select *Next*.
+. On the *OS* tab, select *Compute Module 5 Programming Jig* as the operating system image. Select *Next*.
 
 . On the *Storage* tab, select the jig's internal storage as the target. This is listed as *Raspberry Pi Compute Module 5 Lite*. Select *Next*.
 
@@ -233,6 +218,7 @@ The jig obtains a network address automatically using DHCP.
 If you configured Wi-Fi credentials in Raspberry Pi Imager, the jig connects to your wireless network automatically on boot.
 
 . Ensure the jig is powered off by unplugging the power cable.
+. Ensure the Wi-Fi antenna is attached to your the back of your jig.
 . If your jig has an Ethernet cable connected to the *JIG ETH* port, disconnect this cable from the jig.
 . Power on the jig by plugging in the power cable.
 
@@ -296,7 +282,7 @@ wormhole receive <code>
 .. In the *OS Image* section, select *Upload New Image* and select or browse to the operating system image that you transferred to the jig.
 .. In the *Device & Firmware* section, for *Device family*, choose *Raspberry Pi 5*.
 .. In the *Device & Firmware* section, for *Storage Type*, choose *eMMC*.
-.. In the *Security Configuration* section, for *Provisioning Style* choose the security mode. For more information, see <<security-modes>>.
+.. In the *Security Configuration* section, for *Provisioning Style* choose the level of security. For more information, see xref:../security/secure-boot-provisioner.adoc#security-levels[Levels of security]
 .. Signing key: For `secure-boot` mode, provide a signing key. The web interface guides you through creating one.
 
 // ^ Does it? When?
@@ -332,9 +318,9 @@ WARNING: Ensure that the through-hole studs pass through all four corner holes o
 [[program-step-monitor]]
 === Step 2: Monitor provisioning progress
 
-After the CM5 is clamped in place, the jig begins provisioning automatically.
+After the CM5 is clamped in place, the jig begins provisioning automatically. If provisioning doesn't start automatically, see <<device-not-detected>>.
 
-Typical provisioning time is approximately 1.5 minutes for each CM5 with a 2.6 GB OS image installed using the `naked` provisioning style. Actual time varies depending on OS image size, storage type, security mode, and network speed.
+Typical provisioning time is approximately 1.5 minutes for each CM5 with a 2.6 GB OS image installed using the `naked` provisioning style. Actual time varies depending on OS image size, storage type, level of security, and network speed.
 
 WARNING: Don't remove the CM5 from the jig while provisioning is in progress. Don't press the unmarked button on the jig. Either of these actions can render the CM5 unusable.
 
@@ -351,7 +337,7 @@ Monitor the *STATUS* LED on the jig to track progress through the provisioning p
 | Provisioning
 | The jig detects the CM5 and loads a temporary Linux environment. In `secure-boot` mode, the signing key hash is programmed into the device OTP memory (this is a permanent operation).
 
-The jig selects the appropriate provisioning service based on the security mode you chose in <<setup-step-configure-provisioner>>.
+The jig selects the appropriate provisioning service based on the level of security you chose in <<setup-step-configure-provisioner>>.
 
 The jig creates encryption keys (if applicable), formats storage, and installs the operating system.
 
@@ -427,12 +413,8 @@ To update the jig's operating system and all installed software, including Secur
 sudo apt update && sudo apt full-upgrade -y
 ----
 
-== Troubleshooting
-
-If you experience issues with the Compute Module 5 Programming Jig and solutions in the <<common-problems>> section don't identify or resolve the problem, use the following information to diagnose the issue.
-
 [[led-indicators]]
-=== Check LED indicators
+== LED behaviour
 
 The jig uses LED indicators to communicate its current state. The following table describes each LED and its meaning.
 
@@ -476,7 +458,7 @@ There are two LED indicators on the back of the jig, *JIG* and *DUT*, and one LE
 
 | DUT
 | Solid red
-| This can indicate that the CM5 is damaged. If this light remains red with multiple different modules, it might indicate a problem with the jig. For more information, see <<get-help>>.
+| This can indicate that the CM5 is damaged. If this light remains red with multiple different modules, it might indicate a problem with the jig. For more information, see <<troubleshooting>>.
 
 | STATUS
 | Off
@@ -501,57 +483,15 @@ If there is a CM5 in the jig, provisioning completed successfully and the CM5 ca
 | Provisioning failed.
 |===
 
+== Troubleshooting
 
-[[check-the-logs]]
-=== Check the logs
+If you experience issues with the Compute Module 5 Programming Jig, use the following information to diagnose the issue.
 
-If a provisioning attempt fails, you can check the logs for error details.
+* If provisioning doesn't start when the CM5 is clamped in the jig, attempt the steps in <<device-not-detected>> to resolve the issue.
+* For other issues, see the xref:../security/secure-boot-provisioner.adoc#troubleshooting[Secure Boot Provisioner troubleshooting information].
 
-[tabs]
-======
-Using the web interface::
-+
-. Access http://localhost:3142 on the jig as described in <<setup-step-use-provisioner>>.
-. Select the *Services* tab.
-. Find your CM5 in the *System Services* table.
-. Select *View logs* to view detailed logs about it.
-
-Using the command line::
-+
-To view logs for a specific device, connect to the jig over SSH or through Raspberry Pi Connect.
-+
-Run the following command, replacing `<serial>` with the device serial number:
-+
-[source,bash]
-----
-tail -f /var/log/rpi-sb-provisioner/<serial>/provisioner.log
-----
-+
-For more detailed logs, run the following command, replacing `<serial>` with the device serial number:
-+
-[source,bash]
-----
-journalctl -xeu rpi-sb-provisioner@<serial> -f
-----
-======
-
-[[clear-the-cache]]
-=== Clear the cache
-
-If old files cause problems, you can clear the provisioning cache. Clearing the provisioning cache causes the next provisioning operation to take longer.
-
-. Access http://localhost:3142 on the jig as described in <<setup-step-use-provisioner>>.
-. Go to the *Options* tab and the *OS Image* section.
-. Select the OS image that you want to clear from the provisioning cache.
-. Select *Clear cached files*.
-. On the confirmation window, select *OK* to confirm the action.
-
-[[common-problems]]
-=== Common problems
-
-This section describes common problems that you might encounter when using the Compute Module 5 Programming Jig and suggests ways to resolve them.
-
-==== Device not detected
+[[device-not-detected]]
+=== Device not detected
 
 If the CM5 is clamped in the jig, but provisioning doesn't start, try the following:
 
@@ -568,34 +508,6 @@ If the CM5 is clamped in the jig, but provisioning doesn't start, try the follow
 . Check whether the pogo pins are dirty or damaged.
 .. Inspect the pogo pins for debris or damage.
 .. If the pogo pins are dirty, gently clean them with a cotton swab dipped in isopropyl alcohol or a specialist cleaning fluid.
-
-==== Provisioning stops or never completes
-
-If provisioning starts but never finishes, try the following:
-
-. Check the logs for error messages (see <<check-the-logs>>).
-. Clear the cache (see <<clear-the-cache>>).
-. Check that the jig has at least 32 GB of free storage space.
-. Try provisioning a different CM5 to determine whether the problem is device-specific.
-
-==== Error: "Already signed"
-
-If the error logs report that the CM5 is already signed or secure, the CM5 was previously programmed with a signing key. This operation is permanent and can't be reversed. However, the following actions are available for this CM5:
-
-* To skip the signing step, set the *Skip EEPROM Update* flag for this device.
-.. Access http://localhost:3142 on the jig as described in <<setup-step-use-provisioner>>.
-.. Go to the *Devices* tab and select the device you're programming.
-.. On the device-specific page, in the *Special Flags* section, set *Skip EEPROM Update* to *One-time*.
-
-* To use the same key to completely re-provision the device, set the *Re-provision Device* flag for this device.
-.. Access http://localhost:3142 on the jig as described in <<setup-step-use-provisioner>>.
-.. Go to the *Devices* tab and select the device you're programming.
-.. On the device-specific page, in the *Special Flags* section, set *Re-provision Device* to *One-time*.
-
-[[get-help]]
-=== Get help
-
-If you encounter a problem that isn't covered in this section, report it at https://github.com/raspberrypi/rpi-sb-provisioner/issues[the rpi-sb-provisioner issue tracker]. Include the device type that you're trying to provision, error messages, and <<check-the-logs, log files>>.
 
 == Safety warnings
 

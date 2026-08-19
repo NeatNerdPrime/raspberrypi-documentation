@@ -1,4 +1,4 @@
-This page introduces Raspberry Pi *Secure Boot Provisioner*, (`rpi-sb-provisioner`). Secure Boot Provisioner automates the secure (verified) boot and disk encryption setup process, and supports the provisioning of multiple Raspberry Pi devices. As part of its workflow, Secure Boot Provisioner automates tasks that would otherwise require manual, multi-step setup, including firmware flashing, OS image writing, key generation, and activating hardware-level protection mechanisms.
+This page introduces Raspberry Pi *Secure Boot Provisioner* (`rpi-sb-provisioner`). Secure Boot Provisioner automates the secure (verified) boot and disk encryption setup process, and supports the provisioning of multiple Raspberry Pi devices. As part of its workflow, Secure Boot Provisioner automates tasks that would otherwise require manual, multi-step setup, including firmware flashing, OS image writing, key generation, and activating hardware-level protection mechanisms.
 
 IMPORTANT: This tool is in active development, which means it's currently being improved and updated. If you find any bugs or if you want to suggest features, let us know on GitHub: https://github.com/raspberrypi/rpi-sb-provisioner.
 
@@ -347,3 +347,87 @@ When provisioned, the client device:
 * Verifies the signed bootloader on startup using the public key stored in OTP.
 * Only boots images signed by your trusted private key.
 * If you also configure full-disk encryption (recommended), decrypts its storage at boot using the device-unique secret before loading the OS.
+
+== Troubleshooting
+
+If you experience issues when using Secure Boot Provisioner to provision a device, use the information in this section to address or diagnose the issue.
+
+* Check whether you are experiencing a common problem (see <<common-problems>>).
+* Check the logs for error messages (see <<check-the-logs>>).
+* Clear the cache (see <<clear-the-cache>>).
+* If you are unable to resolve your issue, contact us to report the issue (see <<get-help>>).
+
+[[common-problems]]
+=== Common problems
+
+This section describes common problems that you might encounter when using Secure Boot Provisioner and suggests ways to resolve them.
+
+==== Provisioning stops or never completes
+
+If provisioning starts but stops part way or never finishes, try the following:
+
+. Check the logs for error messages (see <<check-the-logs>>).
+. Clear the cache (see <<clear-the-cache>>).
+. Check that the provisioning server has at least 32 GB of free storage space.
+. Try provisioning a different client device to determine whether the problem is device-specific.
+
+==== Error: "Already signed"
+
+If the error logs report that the client device is already signed or secure, the client device was previously programmed with a signing key. This operation is permanent and can't be reversed. However, the following actions are available for this CM5:
+
+* To skip the signing step, set the *Skip EEPROM Update* flag for this device.
+.. Go to the Secure Boot Provisioner web UI at http://localhost:3142.
+.. Go to the *Devices* tab and select the device you're programming.
+.. On the device-specific page, in the *Special Flags* section, set *Skip EEPROM Update* to *One-time*.
+
+* To use the same key to completely re-provision the device, set the *Re-provision Device* flag for this device.
+.. Go to the Secure Boot Provisioner web UI at http://localhost:3142.
+.. Go to the *Devices* tab and select the device you're programming.
+.. On the device-specific page, in the *Special Flags* section, set *Re-provision Device* to *One-time*.
+
+[[check-the-logs]]
+=== Check the logs
+
+If a provisioning attempt fails, you can check the logs for error details.
+
+[tabs]
+======
+Using the web interface::
++
+. Go to the Secure Boot Provisioner web UI at http://localhost:3142.
+. Select the *Services* tab.
+. Find your CM5 in the *System Services* table.
+. Select *View logs* to view detailed logs about it.
+
+Using the command line::
++
+Run the following command, replacing `<serial>` with the device serial number:
++
+[source,bash]
+----
+tail -f /var/log/rpi-sb-provisioner/<serial>/provisioner.log
+----
++
+For more detailed logs, run the following command, replacing `<serial>` with the device serial number:
++
+[source,bash]
+----
+journalctl -xeu rpi-sb-provisioner@<serial> -f
+----
+======
+
+[[clear-the-cache]]
+=== Clear the cache
+
+If old files cause problems, you can clear the provisioning cache. Clearing the provisioning cache causes the next provisioning operation to take longer.
+
+. Go to the Secure Boot Provisioner web UI at http://localhost:3142.
+. Select the *Options* tab and the *OS Image* section.
+. Select the OS image that you want to clear from the provisioning cache.
+. Select *Clear cached files*.
+. On the confirmation window, select *OK* to confirm the action.
+
+[[get-help]]
+=== Get help
+
+If you encounter a problem that isn't covered in this section, report it at https://github.com/raspberrypi/rpi-sb-provisioner/issues[the rpi-sb-provisioner issue tracker]. Include the device type that you're trying to provision, error messages, and <<check-the-logs, log files>>.
