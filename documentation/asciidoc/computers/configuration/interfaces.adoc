@@ -203,7 +203,7 @@ Raspberry Pi supports two types of UART:
 * *PL011.* A full-featured, 16550-compatible UART that provides hardware-timed serial communication.
 * *Mini UART.* A lightweight UART that provides a simple and efficient serial interface.
 
-Unlike https://developer.arm.com/documentation/ddi0183/g/[PL011], the mini UART has no break detection, no framing errors detection, no parity bit, and no receive timeout interrupt. The mini UART also has smaller FIFOs. Combined with the lack of flow control, this makes the mini UART more prone to losing characters at higher baud rates. It's also generally less capable than PL011, mainly due to its baud rate link to the VPU clock speed. Further information about the mini UART can be found in the https://pip.raspberrypi.com/documents/RP-008249-DS[SoC peripherals document].
+Unlike https://support.arm.com/documentation/ddi0183/g/[PL011], the mini UART has no break detection, no framing errors detection, no parity bit, and no receive timeout interrupt. The mini UART also has smaller FIFOs. Combined with the lack of flow control, this makes the mini UART more prone to losing characters at higher baud rates. It's also generally less capable than PL011, mainly due to its baud rate link to the VPU clock speed. Further information about the mini UART can be found in the https://pip.raspberrypi.com/documents/RP-008249-DS[SoC peripherals document].
 
 Neither the mini UART nor the BCM2835 implementation of PL011 has DCD, DSR, DTR, or RI signals.
 
