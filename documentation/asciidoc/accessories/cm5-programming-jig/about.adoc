@@ -430,12 +430,12 @@ To replace one or more pogo pins, complete the following steps:
 . Ensure the jig is disconnected from the power.
 . Press the top of the latch backwards to release the clamping mechanism, allow the lid to slide up, and then pivot the lid back until it stops.
 . Use the Allen key to unfasten the bolts in the middle of each of the two short edges of the module bay. Retain these bolts to use for reassembly.
-. Lift the module bay straight upwards. The four guideposts at the corners ensure that you can do this without fouling the pogo pins.
+. Lift the module bay straight upwards and away from the pogo pins in the jig. The four guideposts at the corners ensure that you can do this without fouling the pogo pins. Retain the module bay to use for reassembly.
 . Use the tweezers to grip a pogo pin that you want to replace and pull it straight upwards and out of the collar.
-. Use the tweezers to insert the replacement pogo pin into the collar. Ensure that the larger diameter end with a hole in it goes into the collar first and that the smaller diameter, solid end points upwards.
+. Use the tweezers to insert the replacement pogo pin into the collar. Ensure that the larger diameter end with a hole in it goes into the collar first and that the smaller diameter end points upwards.
 . Use the flat of the tweezers to gently press down on the pogo pin and ensure it's flush with the collar when compressed.
 . After you have replaced all the pogo pins that you want to, replace the module bay.
-.. Position it with the Raspberry Pi logo facing upwards and orientated towards you and away from the open lid.
+.. Position it with the Raspberry Pi logo and text facing upwards and with the text on the edge closest to the front of the jig.
 .. Line up the guideposts in the four corners of the module bay with the corresponding holes in the jig.
 .. Slide the module bay down and into position. The guideposts ensure that this operation doesn't foul the pogo pins.
 . Secure the module bay by reinserting the two bolts you removed earlier and tightening them with the Allen key. Don't over-tighten these bolts.
