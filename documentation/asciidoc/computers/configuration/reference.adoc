@@ -96,7 +96,7 @@ Various xref:linux_kernel.adoc#kernel[kernel] image files that correspond to Ras
 | `kernel_2712.img`
 | BCM2712
 | Pi 5, CM5, Pi 500, Pi 500+
-| Raspberry Pi 5-optimized xref:config_txt.adoc#boot-options[64-bit kernel].
+| Raspberry Pi 5-optimised xref:config_txt.adoc#boot-options[64-bit kernel].
 |===
 
 NOTE: `lscpu` reports a CPU architecture of `armv7l` for systems running a 32-bit kernel, and `aarch64` for systems running a 64-bit kernel. The `l` in the `armv7l` case refers to little-endian CPU architecture, not `LPAE` as is indicated by the `l` in the `kernel7l.img` filename.
