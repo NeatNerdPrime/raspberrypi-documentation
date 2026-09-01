@@ -36,7 +36,7 @@ Defaults to 1 on Raspberry Pi 4, 400, and Compute Module 4 and 4S platforms. Def
 * uncompressed image files
 * gzip archives of an image
 
-Both forms may use the `img` file extension; the bootloader recognizes archives using signature bytes at the start of the file.
+Both forms may use the `img` file extension; the bootloader recognises archives using signature bytes at the start of the file.
 
 The following Raspberry Pi models support this flag:
 
@@ -242,7 +242,7 @@ Default: ``
 
 If set to a non-zero value (in seconds), this property enables a hardware watchdog timer that is handed over to the operating system (OS) at boot. If the OS does not regularly "kick" or reset the watchdog, the system will be reset after the specified timeout.
 
-This property sets the `systemd` `watchdog.open_timeout` parameter, which controls how long the OS has to initialize and start servicing the watchdog. The value is passed to the OS via the kernel command line. For ongoing operation, the OS must also regularly reset the watchdog, typically controlled by the `RuntimeWatchdogSec` parameter in `systemd`. For more information, see https://www.freedesktop.org/software/systemd/man/latest/systemd-system.conf.html#RuntimeWatchdogSec=[systemd watchdog documentation].
+This property sets the `systemd` `watchdog.open_timeout` parameter, which controls how long the OS has to initialise and start servicing the watchdog. The value is passed to the OS via the kernel command line. For ongoing operation, the OS must also regularly reset the watchdog, typically controlled by the `RuntimeWatchdogSec` parameter in `systemd`. For more information, see https://www.freedesktop.org/software/systemd/man/latest/systemd-system.conf.html#RuntimeWatchdogSec=[systemd watchdog documentation].
 
 [NOTE]
 ====
